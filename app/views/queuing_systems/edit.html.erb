@@ -1,0 +1,11 @@
+<div class="inner cover">
+  <%= form_tag '/queuing_system', method: 'get' do %>
+    <h1 class='cover-heading'>Enter steps number</h1>
+    <p class="lead">
+      <%= text_field_tag :steps_number, '', class: 'form-control', placeholder: 'Steps number...' %>
+    </p>
+    <p class="lead">
+      <%= submit_tag 'Generate', class: 'btn btn-lg btn-secondary' %>
+    </p>
+  <% end %>
+</div>
