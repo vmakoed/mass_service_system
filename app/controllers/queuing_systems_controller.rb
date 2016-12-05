@@ -15,10 +15,15 @@ class QueuingSystemsController < ApplicationController
   private
 
   def run_queuing_system
-    @states = @queuing_system.run(@steps_number)
-    state_probabilities
-    @relative_bandwidth = @queuing_system.processed_requests * 1.0 / @queuing_system.requests
-    @average_queue_length = @queuing_system.queue_lengths.reduce(&:+) * 1.0 / @steps_number
+    @states = @queuing_system.run @steps_number
+    # state_probabilities
+
+    @relative_bandwidth = @queuing_system.processed_requests.length * 1.0 / @queuing_system.created_requests
+    # @average_queue_length = @queuing_system.queue_lengths.reduce(&:+) * 1.0 / @steps_number
+    # requests =  @queuing_system.processed_requests + @queuing_system.unprocessed_requests
+    # p requests
+    # queue_requests = requests.compact.select { |e| e.age != 0 }
+    # @average_request_age = queue_requests.reduce(0) { |a, e| a += e.age } * 1.0 / queue_requests.length
   end
 
   def state_probabilities
@@ -28,7 +33,6 @@ class QueuingSystemsController < ApplicationController
   def state_probability(state)
     @states.select { |test_state| test_state == state}.length * 1.0 / @states.length
   end
-
 
   def setup_steps_number
     @steps_number = params[:steps_number].to_i

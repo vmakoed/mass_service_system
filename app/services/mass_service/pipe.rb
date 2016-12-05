@@ -1,6 +1,6 @@
 module MassService
   class Pipe
-    attr_reader :state, :request_state
+    attr_reader :state, :request_state, :request
 
     STATES = {
       vacant: '0',
@@ -13,8 +13,9 @@ module MassService
       @request_state = :none
     end
 
-    def push
+    def push(request)
       raise "Can't push, full" unless vacant?
+      @request = request
       @state = :reserved
       @request_state = :ready
     end
@@ -23,6 +24,9 @@ module MassService
       raise "Can't pull, empty" if vacant?
       @state = :vacant
       @request_state = :none
+      pulled_request = @request
+      @request = nil
+      pulled_request
     end
 
     def execute
@@ -43,7 +47,7 @@ module MassService
     end
 
     def perform
-      rand > @success_probability
+      rand < @success_probability
     end
   end
 end

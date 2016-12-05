@@ -1,6 +1,7 @@
 .inner.cover
   p Relative bandwidth (Q): "#{@relative_bandwidth}"
   p Average queue length (Lq): "#{@average_queue_length}"
+  p Average request queue time(Wq): #{@average_request_age}
 
   /- @states.each_with_index do |state, index|
   /  p = state
