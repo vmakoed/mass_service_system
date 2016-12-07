@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'queuing_systems#edit'
-  resource :queuing_system
+  root to: 'mass_service_systems#index'
+  resource :mass_service_systems
 end

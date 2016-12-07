@@ -1,0 +1,10 @@
+ru:
+  app_title: Система массового обслуживания
+  states_probabilities: Вероятности состояний
+  relative_bandwidth: Относительная пропускная способность (Q)
+  average_queue_length: Средняя длина очереди (Lq)
+  average_request_queue_age: Среднее время пребывания заявки в очереди (Wq)
+  steps_number: Количество повторений
+  first_pipe_failure_probability: Вероятность отказа первого канала
+  second_pipe_failure_probability: Вероятность отказа второго канала
+  run: Запуск

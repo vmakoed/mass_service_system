@@ -10,13 +10,14 @@ module MassService
 
     def push(request)
       raise "Can't push, full" if full?
+
       requests << request
-      request.increase_age
       @occupancy += 1
     end
 
     def pull
       raise "Empty, can't pull" if empty?
+
       pulled_request = @requests.first
 
       @requests -= [pulled_request]
@@ -37,7 +38,7 @@ module MassService
     end
 
     def handle_age
-      @requests.each(&:increase_age)
+      @requests.each(&:increase_queue_age)
     end
   end
 end

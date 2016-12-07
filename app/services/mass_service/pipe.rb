@@ -15,6 +15,7 @@ module MassService
 
     def push(request)
       raise "Can't push, full" unless vacant?
+
       @request = request
       @state = :reserved
       @request_state = :ready
@@ -22,6 +23,7 @@ module MassService
 
     def pull
       raise "Can't pull, empty" if vacant?
+
       @state = :vacant
       @request_state = :none
       pulled_request = @request
@@ -31,6 +33,7 @@ module MassService
 
     def execute
       raise "Can't execute, empty" if vacant?
+
       @request_state = :processed if perform
     end
 

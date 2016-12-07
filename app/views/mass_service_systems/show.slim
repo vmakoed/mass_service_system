@@ -1,0 +1,35 @@
+.container.results-container
+  .row
+    .col-md-12
+      h5.input_data
+        = "q1: #{@failure_probabilities.first}; "
+        = "q2: #{@failure_probabilities.second}; "
+        = "#{t('steps_number')}: #{@steps_number}"
+
+.jumbotron
+  .container.results-container
+    .row
+      .col-md-6
+        h5 = "#{t('relative_bandwidth')}:"
+      .col-md-6
+        h5 = '%f' % @results[:relative_bandwidth]
+    .row
+      .col-md-6
+        h5 = "#{t('average_queue_length')}:"
+      .col-md-6
+        h5 = '%f' % @results[:average_queue_length]
+    .row
+      .col-md-6
+        h5 = "#{t('average_request_queue_age')}:"
+      .col-md-6
+        h5 = '%f' % @results[:average_request_age]
+
+.container.results-container
+  .row
+    h3 = "#{t('states_probabilities')}:"
+    - @results[:state_probabilities].each do |state, value|
+      .row
+        .col-md-6
+          h5 = state
+        .col-md-6
+          h5 = '%f' % value

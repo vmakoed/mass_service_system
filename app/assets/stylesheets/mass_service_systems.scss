@@ -1,0 +1,38 @@
+// Place all the styles related to the QueuingSystemsController controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.header {
+  padding-bottom: 20px;
+}
+
+.queuing-system-form {
+  p.run-button {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .row {
+    margin-top: 20px;
+  }
+}
+
+.container {
+  .row {
+    .col-md-6:first-of-type {
+      text-align: right;
+    }
+  }
+}
+
+.results-container {
+  h3 {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 20px;
+  }
+}
+
+.input_data {
+  text-align: right;
+}

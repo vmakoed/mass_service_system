@@ -6,7 +6,7 @@ module MassService
       @age = 0
     end
 
-    def increase_age
+    def increase_queue_age
       @age += 1
     end
   end

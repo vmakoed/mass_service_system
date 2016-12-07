@@ -1,0 +1,21 @@
+.jumbotron
+  = form_tag '/mass_service_systems', method: 'get', class: 'form-inline queuing-system-form' do
+    .lead
+      .container
+        .row
+          .col-md-6
+            = label_tag "#{t('steps_number')}:"
+          .col-md-6
+            = number_field_tag :steps_number, '', class: 'form-control', value: 100000, min: 0, step: 10000
+        .row
+          .col-md-6
+            = label_tag "#{t('first_pipe_failure_probability')}:"
+          .col-md-6
+            = number_field_tag :failure_first, '', class: 'form-control', in: 0..1, step: 0.1
+        .row
+          .col-md-6
+            = label_tag "#{t('second_pipe_failure_probability')}:"
+          .col-md-6
+            = number_field_tag :failure_second, '', class: 'form-control', in: 0..1, step: 0.1
+    p.run-button
+      = submit_tag t('run'), class: 'btn btn-lg btn-success'
