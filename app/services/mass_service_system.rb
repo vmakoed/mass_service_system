@@ -7,21 +7,17 @@ class MassServiceSystem
     @pipes = pipes_probabilities.map { |failure_probability| MassService::Pipe.new(failure_probability) }
     @queue = MassService::Queue.new queue_size
     @requests = { rejected: [], processed: [], unprocessed: [] }
-    @states = []
     @queue_lengths = []
-
-    reset_time
+    @states = []
   end
 
   def run(steps)
-    @states = steps.times.map { |_| perform }
+    reset_time
+    record_state
+    steps.times { perform }
     pull_processed_request if finished?
     pull_unprocessed_requests
     results steps
-  end
-
-  def state
-    "#{@queue.to_s}#{@time}#{@pipes.first}#{@pipes.second}"
   end
 
   private
@@ -33,7 +29,7 @@ class MassServiceSystem
     execute_queue
     execute_transfer if ready_for_second_pipe?
     ready_for_first_pipe? ? new_request : next_time
-    self.state
+    record_state
   end
 
   def results(steps)
@@ -43,7 +39,7 @@ class MassServiceSystem
       state_probabilities: state_probabilities,
       relative_bandwidth: @requests[:processed].length * 1.0 / requests.length,
       average_queue_length: (@queue_lengths.reduce(&:+) || 0) * 1.0 / steps,
-      average_request_age: requests.map(&:age).reduce(&:+) * 1.0 / requests.length
+      average_request_age: @requests[:processed].map(&:age).reduce(&:+) * 1.0 / @requests[:processed].length
     }
   end
 
@@ -99,6 +95,14 @@ class MassServiceSystem
     new_request = MassService::Request.new
     @pipes.first.push new_request
     reset_time
+  end
+
+  def record_state
+    @states << state
+  end
+
+  def state
+    "#{@queue.to_s}#{@time}#{@pipes.first}#{@pipes.second}"
   end
 
   def ready_for_first_pipe?
